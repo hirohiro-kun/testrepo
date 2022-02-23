@@ -1,9 +1,9 @@
 const request = require('sync-request');
-const url = "https://raw.githubusercontent.com/hirohiro-kun/testrepo/master/README.md";
+const url = "https://raw.githubusercontent.com/hirohiro-kun/testrepo/master/index.js";
 const response = request("GET", url);
 const AWS = require('aws-sdk');
 const bucketName = 'hk5gfree';
-const fileName = "README.md";
+const fileName = "index.js";
 const fileData = response.getBody().toString();
 const s3 = new AWS.S3();
 

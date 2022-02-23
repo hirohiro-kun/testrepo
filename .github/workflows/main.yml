@@ -1,4 +1,8 @@
-# reference: https://gammalab.net/blog/lfj8xfqj6qdyg/
+# reference:
+#   - https://gammalab.net/blog/lfj8xfqj6qdyg/
+#   - https://dev.classmethod.jp/articles/latest-current-using-actions/
+#   - https://qiita.com/homoluctus/items/412d4e81b24804d75205
+
 on:
   push:
     branches:
