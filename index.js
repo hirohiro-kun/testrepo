@@ -25,7 +25,5 @@ exports.handler =  async function(event, context) {
             }
         });
     }
-
     upload_to_s3();
 };
-  
