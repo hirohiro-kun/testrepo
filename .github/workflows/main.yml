@@ -1,25 +1,35 @@
 # reference: https://gammalab.net/blog/lfj8xfqj6qdyg/
-name: deploy
-
 on:
   push:
     branches:
       - master
-  workflow_dispatch:
-    branches:
-      - master
+  # workflow_dispatch:
+  #   branches:
+  #     - master
+
+name: Auto Deploy to AWS Lambda
+
 jobs:
-  lambda-cd:
+  deploy:
+    name: Auto Deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
         with:
-          node-version: 14
-      - run: npm install sync-request --no-save
-      - run: zip -r athena-query.zip ./*
-      - run: pip3 install awscli
-      - run: aws lambda update-function-code --function-name athena-query --zip-file fileb://athena-query.zip --publish
+          node-version: '14'
+
+      - name: Install Dependencies
+        run: |
+          npm install sync-request --no-save
+          pip3 install awscli
+
+      - name: Deploy to Lambda
+        run: |
+          zip -r athena-query.zip ./*
+          aws lambda update-function-code --function-name athena-query --zip-file fileb://athena-query.zip --publish
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
