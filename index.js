@@ -4,7 +4,7 @@ const response = request("GET", url);
 const bucketName = 'hk5gfree';
 const AWS = require('aws-sdk');
 
-exports.handler =  async function(event, context) {
+exports.handler = function(event, context, callback) {
     //console.log(response.getBody().toString());
     function upload_to_s3() {
         const s3 = new AWS.S3();
@@ -26,4 +26,5 @@ exports.handler =  async function(event, context) {
         });
     }
     upload_to_s3();
+    return context.logStreamName;
 };
