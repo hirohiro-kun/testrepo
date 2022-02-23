@@ -12,11 +12,12 @@ jobs:
   lambda-cd:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-python@v1
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
-          python-version: 3.8
-      - run: npm install sync-request
+          node -version: '14'
+          cache: npm
+      - run: npm install sync-request --no-save
       - run: zip -r athena-query.zip ./*
       - run: pip3 install awscli
       - run: aws lambda update-function-code --function-name athena-query --zip-file fileb://athena-query.zip --publish
